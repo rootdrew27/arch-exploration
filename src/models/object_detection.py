@@ -5,7 +5,7 @@ from ..heads.yolo import YOLO8Head
 from ..backbones.yolo import YOLO8Backbone
 
 class RefNet(nn.Module):
-    def __init__(self, nc=1):
+    def __init__(self, nc=80):
         super(RefNet, self).__init__()
         self.backbone = YOLO8Backbone()
         self.detect_head = YOLO8Head(nc)
@@ -19,4 +19,15 @@ class RefNet(nn.Module):
         y = self.detect_head(p3, p4, p5)
         return y
     
-    
+
+class YOLOv8(nn.Module):
+    def __init__(self, nc=1):
+        super(YOLOv8, self).__init__()
+        self.backbone = YOLO8Backbone()
+        self.head = YOLO8Head(nc)
+        
+    def forward(self, x):
+        x = self.backbone(x)
+        x = self.head(x)
+        return x
+        

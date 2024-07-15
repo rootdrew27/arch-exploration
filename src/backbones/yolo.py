@@ -2,14 +2,14 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from ..components.comps import ConvBlock, C2f, Bottleneck, SPPF, Concat, Detect
+from ..components.comps import ConvBlock, C2f, SPPF
 
 class YOLO8Backbone(nn.Module):
     def __init__(self):
         super(YOLO8Backbone, self).__init__()
         self.conv_1 = ConvBlock(3, 64, 3, 2) 
         self.conv_2 = ConvBlock(64, 128, 3, 2)
-        self.c2f_1 = C2f(128, 128, shortcut=True) 
+        self.c2f_1 = C2f(128, 128, 3, shortcut=True) 
         self.conv_3 = ConvBlock(128, 256, 3, 2)
         self.c2f_2 = C2f(256, 256, 6, shortcut=True) # P3
         self.conv_4 = ConvBlock(256, 512, 3, 2)

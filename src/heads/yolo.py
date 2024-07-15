@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from ..components.comps import ConvBlock, C2f, Bottleneck, SPPF, Concat, Detect
 
 class YOLO8Head(nn.Module):
-    def __init__(self, nc):
+    def __init__(self, nc=80):
         super(YOLO8Head, self).__init__()
         
         self.upsample_10 = nn.Upsample(None, 2, "nearest")
@@ -19,7 +19,7 @@ class YOLO8Head(nn.Module):
         # p5 
         self.conv_16 = ConvBlock(256, 256, 3, 2)
         self.concat_17 = Concat(1)
-        self.c2f_18 = C2f(768, 512, 2)
+        self.c2f_18 = C2f(768, 512, 3)
         
         # 
         self.conv_19 = ConvBlock(512, 512, 3, 2)
